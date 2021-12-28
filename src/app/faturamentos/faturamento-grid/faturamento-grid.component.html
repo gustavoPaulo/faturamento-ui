@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Faturamentos</h1>
+
+    <p-table [value]="faturamentos" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Descrição</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-faturamento>
+            <tr>
+                <td>Sem info</td>
+                <td>Sem info</td>
+                <td>Sem info</td>
+                <td>Sem info</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
