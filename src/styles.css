@@ -1,5 +1,10 @@
+@font-face {
+    font-family: nunito;
+    src: url(assets/fonts/Nunito/static/Nunito-Light.ttf) format("opentype");
+}
+
 body {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'nunito';
     background-color: rgb(35, 39, 41);
     color: #fff;
 }
