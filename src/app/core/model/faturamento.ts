@@ -3,5 +3,5 @@ export class Faturamento {
     tipo = 'RECEITA';
     valor: number | undefined;
     data: string | undefined;
-    observacao: string | undefined;
+    descricao: string | undefined;
 }

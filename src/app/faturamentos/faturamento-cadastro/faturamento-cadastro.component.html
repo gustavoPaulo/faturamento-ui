@@ -1,8 +1,42 @@
 <div class="container">
 
-    <div class="p-grid">
-      <div class="p-col-12">
+  <form #faturamentoForm="ngForm" autocomplete="off" class="faturamentoForm"
+    (ngSubmit)="salvar(faturamentoForm)">
+  
+      <div class="col-12">
         <h1>{{ editando ? 'Edição de' : 'Novo' }} Faturamento</h1>
-    </div>
-      
+      </div>
+
+      <div class="col-12">
+        <p-selectButton [options]="tipoFaturamento" #tipo="ngModel" 
+          name="tipo" ngModel [(ngModel)]="faturamento.tipo">
+        </p-selectButton>
+      </div>
+
+      <div class="col-3 p-fluid">
+        <label>Valor</label>
+        <input pInputText type="text" placeholder="R$ 0,00" ngModel 
+          name="valor" #valor="ngModel" required 
+          [(ngModel)]="faturamento.valor">
+      </div>
+
+      <div class="col-6 p-fluid">
+          <label>Data</label>
+          <input pInputText type="text" name="data" ngModel 
+            #data="ngModel" required [(ngModel)]="faturamento.data">
+      </div>
+
+      <div class="col-7 p-fluid">
+        <label>Descrição</label>
+        <textarea pInputTextarea rows="3" name="descricao" ngModel 
+          #descricao="ngModel" [(ngModel)]="faturamento.descricao">
+        </textarea>
+      </div>
+
+      <div class="col-12">
+        <button pButton type="submit" label="Salvar"></button>
+      </div>
+
+  </form>
+  
 </div>

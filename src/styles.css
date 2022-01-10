@@ -8,3 +8,7 @@ body {
     background-color: rgb(35, 39, 41);
     color: #fff;
 }
+
+.container {
+    margin-top: 10px;
+}

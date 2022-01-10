@@ -24,4 +24,8 @@ export class FaturamentoCadastroComponent implements OnInit {
     return Boolean(this.faturamento.codigo);
   }
 
+  salvar(form: any) {
+    console.log(form.value);
+  }
+
 }
