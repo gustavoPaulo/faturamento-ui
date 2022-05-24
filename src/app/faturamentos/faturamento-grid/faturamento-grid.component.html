@@ -1,3 +1,64 @@
 <div class="container">
-    <h1>Faturamentos</h1>
+
+    <form autocomplete="off" class="col-12" (ngSubmit)="pesquisar()">
+
+        <div class="col-12">
+            <h1>Faturamentos</h1>
+        </div>
+
+        <div class="col-12">
+        <p-selectButton [options]="tipoFaturamento" #tipo="ngModel" 
+          name="tipo" ngModel [(ngModel)]="filtroFaturamento.tipo">
+        </p-selectButton>
+        </div>
+
+        <div class="col-3">
+        <label>De</label>
+        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true"
+            [readonlyInput]="true" name="dataInicio"
+            [(ngModel)]="filtroFaturamento.dataInicio"></p-calendar>
+        </div>
+
+        <div class="col-3">
+        <label>até</label>
+        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true"
+            [readonlyInput]="true" name="dataFim"
+            [(ngModel)]="filtroFaturamento.dataFim"></p-calendar>
+        </div>
+
+        <div class="col-12">
+            <button pButton type="submit" label="Pesquisar"></button>
+        </div>
+
+    </form>
+
+    <div class="col-12">
+        <p-table [columns]="cols" [value]="faturamentos" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Data</th>
+                <th>Descrição</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-faturamento>
+            <tr>
+                <td>{{faturamento.tipo}}</td>
+                <td>{{faturamento.valor}}</td>
+                <td>{{faturamento.data}}</td>
+                <td>{{faturamento.descricao}}</td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="4">
+              Nenhum faturamento encontrado.
+            </td>
+          </tr>
+        </ng-template>
+        </p-table>
+    </div>
+
 </div>
