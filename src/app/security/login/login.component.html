@@ -1,0 +1,34 @@
+<div class="container-login">
+    
+  <div class="container-login-central">
+
+    <div class="container-header">
+      <div class="titulo-login">Billing</div>
+      <div class="info-login">Entre com seu e-mail e senha ou
+        <p-button label="cadastre-se" [link]="true" routerLink="/login/cadastro"/>
+      </div>
+    </div>
+
+    <div class="container-form">  
+      <form class="form-input" [formGroup]="loginForm" (submit)="login()">
+        
+        <div class="group-input">
+          <div class="text-info">E-mail</div>
+          <input class="input-form" type="text" name="email" id="email" placeholder="E-mail">
+        </div>
+
+        <div class="group-input">
+          <div class="text-info">Senha</div>
+          <input class="input-form" type="password" name="senha" id="senha" placeholder="*****">
+        </div>
+
+        <div class="group-input">
+          <input type="submit" class="btn-login" value="Login">
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,18 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'faturamento-ui';
+  
+  rotasPermitidas = ['/faturamentos', '/faturamentos/novo'];
+
+  constructor(
+    private router: Router
+  ) { }
+
+
+  exibirNavbar() {
+    var urlAtual = this.router.url;
+    var podeMostrar = this.rotasPermitidas.find((rota) => rota == urlAtual);
+
+    return podeMostrar;
+  }
 }

@@ -1,0 +1,5 @@
+:host ::ng-deep .p-menubar {
+    border-radius: 0%;
+    background-color: #78a8f5;
+    padding: 12px;   
+}

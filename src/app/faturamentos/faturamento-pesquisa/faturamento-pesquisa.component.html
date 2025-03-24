@@ -1,0 +1,36 @@
+<div class="grid">
+
+    <div class="col-12">
+      <h1>Faturamentos</h1>
+    </div>
+  
+    <div class="col-12">
+      <label for="descricao" class="font-bold mb-2 block">Descrição</label>
+      <input pInputText id="descricao" type="text" placeholder="Busca por descrição" pSize="large" class="col-6"/>
+    </div>
+  
+    <div class="col-3">
+      <label for="preco-min" class="font-bold mb-2 block">Preço mínimo</label>
+      <p-inputnumber class="pInputNumber" placeholder="R$ 0,00" id="preco-min" mode="decimal" mode="currency" currency="BRL" locale="pt-BR"/>
+    </div>
+  
+    <div class="col-9">
+      <label for="preco-max" class="font-bold mb-2 block">Preço máximo</label>
+      <p-inputnumber placeholder="R$ 0,00" id="preco-max" mode="decimal" mode="currency" currency="BRL" locale="pt-BR"/>
+    </div>
+  
+    <div class="col-3">
+      <label for="data-inicial" class="font-bold mb-2 block">Data inicial</label>
+      <input pInputText id="data-inicial" type="text" placeholder="Data de pagamento inicial" pSize="large"/>
+    </div>
+  
+    <div class="col-9">
+      <label for="data-final" class="font-bold mb-2 block">Data final</label>
+      <input pInputText id="data-final" type="text" placeholder="Data de pagamento máxima" pSize="large"/>
+    </div>
+
+    <div class="col-12">
+      <p-button label="Pesquisar" type="submit" severity="info"/>
+    </div>
+  
+  </div>
