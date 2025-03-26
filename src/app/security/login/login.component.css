@@ -1,14 +1,14 @@
-::ng-deep body {
+::ng-deep body  {
     background-color: #4a5eae;
 }
 
-.container-login{
+.container-login {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 50px;
 
-    .container-login-central{
+    .container-login-central {
         display: grid;
         justify-content: center;
         align-items: center;
@@ -20,8 +20,8 @@
         border-radius: 12px;
     }
 
-    .container-header{
-        .titulo-login{
+    .container-header {
+        .titulo-login {
             font-style: normal;
             font-weight: 700;
             font-size: 42px;
@@ -31,7 +31,7 @@
             height: 60px;
         }
 
-        .info-login{
+        .info-login {
             padding-top: 16px;
             font-style: normal;
             font-weight: 400;
@@ -43,19 +43,19 @@
         }
     }
 
-    .container-form{
+    .container-form {
         display: flex;
         justify-content: baseline;
         align-items: baseline;
 
-        .form-input{
-
+        .form-input {
+        
         }
     }
 }
 
-.group-input{
-    .text-info{
+.group-input {
+    .text-info {
         font-style: normal;
         font-weight: 500;
         font-size: 16px;
@@ -65,7 +65,7 @@
         color: #1b212d;
     }
 
-    .input-form{
+    .input-form {
         display: flex;
         align-items: center;
         padding: 10px 15px;
@@ -82,9 +82,14 @@
         letter-spacing: 0.2px;
         color: #1b212d;
     }
+
+    .error-input {
+        font-size: 14px;
+        color: red;
+    }
 }
 
-.btn-login{
+.btn-login {
     margin-top: 16px;
     display: flex;
     align-items: center;
@@ -104,4 +109,8 @@
     line-height: 16px;
     color: #fefefe;
     text-align: center;
+}
+
+.disabled {
+    opacity: 0.6;
 }

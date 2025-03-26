@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserRegister } from '../../core/model/user-register';
 import { SecurityService } from '../security.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +17,14 @@ export class LoginComponent implements OnInit {
 
   user = new UserRegister;
   loginForm!: FormGroup;
+  rotaNovoUsuario = "/login/cadastro";
 
   constructor(
     private router: Router,
     private title: Title,
     public formBuilder: FormBuilder,
-    private securityService: SecurityService
+    private securityService: SecurityService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -37,15 +40,26 @@ export class LoginComponent implements OnInit {
     this.user.senha = this.loginForm.controls['senha'].value;
     
     this.securityService.login(this.user)
-      .then(resultado => {
-          if (null != resultado.user.code && resultado.user.code > 0) {
-            this.router.navigate(['/faturamentos']);
-          } else {
+      .then(usuarioRecuperado => {
+          if (null == usuarioRecuperado.code) {
             this.router.navigate(['/login']);
+            this.loginForm.reset();
+            this.showError('Nenhum usuário encontrado com o e-mail informado!', 'Falha ao efetuar login.');
+          } else {
+            if (usuarioRecuperado.code == 0) {
+              this.router.navigate(['/login']);
+              this.loginForm.reset();
+              this.showError('E-mail ou senha incorretos!', 'Falha ao efetuar login.');
+            } else {
+              this.router.navigate(['/faturamentos']);
+            }
           }
       })
-      .catch(erro => 
-        console.log('Falha ao efetuar login. Erro: ' + erro));
+      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao efetuar login.'));
+  }
+
+  showError(message: string, titulo: string) {
+    this.toastr.error(message, titulo);
   }
 
 }

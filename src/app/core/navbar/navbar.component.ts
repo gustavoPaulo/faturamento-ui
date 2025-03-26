@@ -48,11 +48,6 @@ export class NavbarComponent implements OnInit {
                   icon: 'pi pi-search',
                   routerLink: '/usuarios'
               }]
-        },
-        {
-          label: 'Logout',
-          icon: 'pi pi-sign-out',
-          routerLink: '/login'
         }
       ];
     }

@@ -2,7 +2,8 @@
 
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:9003',
-    tokenWhitelistedDomains: [ new RegExp('localhost:9003') ],
+    faturamentoApiUrl: 'http://localhost:9001',
+    userApiUrl: 'http://localhost:9002',
+    tokenWhitelistedDomains: [ new RegExp('localhost:9001'), new RegExp('localhost:9002') ],
     tokenBlacklistedRoutes: [ new RegExp('\/oauth\/token') ]
   };

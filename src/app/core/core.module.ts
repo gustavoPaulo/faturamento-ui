@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 
 import { MenubarModule } from 'primeng/menubar';
 import { BadgeModule } from 'primeng/badge';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.component';
@@ -20,11 +22,15 @@ import { SecurityService } from '../security/security.service';
   imports: [
     CommonModule,
     RouterModule,
+    ButtonModule,
+    InputTextModule,
 
     MenubarModule,
     BadgeModule
   ],
   exports: [NavbarComponent],
-  providers: [SecurityService]
+  providers: [
+    SecurityService
+  ]
 })
 export class CoreModule { }

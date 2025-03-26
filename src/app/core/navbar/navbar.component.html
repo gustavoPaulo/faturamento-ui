@@ -1,1 +1,17 @@
-<p-menubar [model]="items"></p-menubar>
+<p-menubar [model]="items">
+    <ng-template #end>
+        <ul style="list-style: none;">
+            <li role="menuitem" ptooltip="" ng-reflect-content="" 
+            ng-reflect-ng-class="[object Object]" id="pn_id_28_3" data-pc-section="menuitem" 
+            data-p-highlight="false" data-p-focused="false" aria-label="Logout" aria-level="1" 
+            aria-setsize="4" aria-posinset="4" class="p-menubar-item" pc103="">
+                <div class="p-menubar-item-content" data-pc-section="content">
+                    <a pripple="" class="p-ripple p-menubar-item-link" ng-reflect-router-link="/login" ng-reflect-router-link-active="p-menubar-item-link-active" ng-reflect-router-link-active-options="[object Object]" ng-reflect-ng-class="[object Object]" tabindex="-1" data-pc-section="action" href="/login" pc104="">
+                    <span class="p-menubar-item-icon pi pi-sign-out" ng-reflect-ng-class="pi pi-sign-out" data-pc-section="icon" tabindex="-1"></span>
+                    <span class="p-menubar-item-label" data-pc-section="label">Logout</span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </ng-template>
+</p-menubar>

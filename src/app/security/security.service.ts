@@ -10,13 +10,13 @@ export class SecurityService {
     securityUrl!: string;
 
     constructor(private http: HttpClient) {
-        this.securityUrl = `${environment.apiUrl}/user-register`;
+        this.securityUrl = `${environment.userApiUrl}/user-register`;
     }
 
     login(user: UserRegister): Promise<any> {
         const headers = new HttpHeaders().append('Content-Type', 'application/json');
 
-        return this.http.put<UserRegister>(`${this.securityUrl}/login`, user, { headers })
+        return this.http.post<UserRegister>(`${this.securityUrl}/login`, user, { headers })
             .toPromise()
             .then(response => {
                 const usuarioRecuperado = response as UserRegister;
@@ -24,10 +24,25 @@ export class SecurityService {
       });
     }
 
-    /*novo(user: UserRegister): Promise<any> {
+    novo(user: UserRegister): Promise<any> {
+        const headers = new HttpHeaders().append('Content-Type', 'application/json');
+
+        return this.http.post<UserRegister>(`${this.securityUrl}/novo`, user, { headers })
+            .toPromise()
+            .then(response => {
+                const usuarioRecuperado = response as UserRegister;
+                return usuarioRecuperado;
+      });
     }
 
-    pesquisar(user: UserRegister): Promise<any> {
+    pesquisar(): Promise<any> {
+        const headers = new HttpHeaders().append('Content-Type', 'application/json');
 
-    }*/
+        return this.http.get(`${this.securityUrl}`, { headers })
+            .toPromise()
+            .then(response => {
+                const usuarioRecuperado = response as UserRegister[];
+                return usuarioRecuperado;
+        });
+    }
 }

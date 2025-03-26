@@ -1,1 +1,52 @@
-<p>user-cadastro works!</p>
+<div class="container-login">
+    
+    <div class="container-login-central">
+  
+      <div class="container-header">
+        <div class="titulo-login">Cadastro</div>
+        <div class="info-login">
+            <p-button label="Voltar para o login" [link]="true" routerLink={{rotaLogin}}/>
+          </div>
+      </div>
+  
+      <div class="container-form">  
+  
+        <form class="form-input" [formGroup]="cadastroForm" (submit)="cadastrar()">
+          <div class="group-input">
+            <div class="text-info">E-mail</div>
+            <input class="input-form" type="email" name="email" id="email" placeholder="E-mail"
+              formControlName="email" required="">
+  
+            <label *ngIf="cadastroForm.get('email')?.errors?.['required']
+              && cadastroForm.get('email')?.touched" class="error-input">Campo obrigatório!</label>
+          </div>
+  
+          <div class="group-input">
+            <div class="text-info">Senha</div>
+            <input class="input-form" type="password" name="senha" id="senha" placeholder="*****"
+              formControlName="senha" required="">
+  
+            <label *ngIf="cadastroForm.get('senha')?.errors?.['required']
+              && cadastroForm.get('senha')?.touched" class="error-input">Campo obrigatório!</label>
+          </div>
+
+          <div class="group-input">
+            <div class="text-info">Confirmar senha</div>
+            <input class="input-form" type="password" name="confirmSenha" id="confirmSenha" placeholder="*****"
+              formControlName="confirmSenha" required="">
+  
+            <label *ngIf="cadastroForm.get('confirmSenha')?.errors?.['required']
+              && cadastroForm.get('confirmSenha')?.touched" class="error-input">Campo obrigatório!</label>
+          </div>
+  
+          <div class="group-input">
+            <input type="submit" class="btn-cadastrar" value="Cadastrar" 
+              [ngClass]="{'disabled' : !cadastroForm.valid}" [disabled]="!cadastroForm.valid">
+          </div>
+        </form>
+  
+      </div>
+  
+    </div>
+  
+  </div>
