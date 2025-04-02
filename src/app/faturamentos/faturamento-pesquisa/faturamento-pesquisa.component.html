@@ -1,36 +1,94 @@
 <div class="grid">
 
-    <div class="col-12">
+  <form class="col" (ngSubmit)="pesquisar()">
+    <div class="col">
       <h1>Faturamentos</h1>
     </div>
+
+    <div class="col">
+      <p-selectButton [options]="options" [(ngModel)]="filtro.type" name="type"/>
+    </div>
   
-    <div class="col-12">
+    <div class="col">
       <label for="descricao" class="font-bold mb-2 block">Descrição</label>
-      <input pInputText id="descricao" type="text" placeholder="Busca por descrição" pSize="large" class="col-6"/>
+      <input pInputText id="descricao" name="descricao"
+        type="text" placeholder="Busca por descrição" pSize="large" class="col-6"
+        [(ngModel)]="filtro.description"/>
     </div>
-  
-    <div class="col-3">
-      <label for="preco-min" class="font-bold mb-2 block">Preço mínimo</label>
-      <p-inputnumber class="pInputNumber" placeholder="R$ 0,00" id="preco-min" mode="decimal" mode="currency" currency="BRL" locale="pt-BR"/>
+    
+    <div class="col p-fluid-flex">
+      <p-fluid>
+        <div class="grid grid-cols-2 gap-6">
+
+          <div>
+            <label for="preco-min" class="font-bold mb-2 block">Preço mínimo</label>
+			      <p-inputnumber class="pInputNumber" placeholder="R$ 0,00" id="preco-min" mode="decimal"
+			        name="preco-min" mode="currency" currency="BRL" locale="pt-BR" min="0"
+              [(ngModel)]="filtro.priceMin" [showButtons]="true" buttonLayout="horizontal" 
+              inputId="horizontal" spinnerMode="horizontal" [step]="0.01">
+
+            <ng-template #incrementbuttonicon>
+              <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+              <span class="pi pi-minus"></span>
+            </ng-template>
+            </p-inputnumber>
+          </div>
+
+          <div>
+            <label for="preco-max" class="font-bold mb-2 block">Preço máximo</label>
+            <p-inputnumber placeholder="R$ 0,00" id="preco-max" mode="decimal" mode="currency" 
+              currency="BRL" locale="pt-BR" [showButtons]="true" buttonLayout="horizontal" 
+              name="preco-max" inputId="horizontal" min="0"
+              spinnerMode="horizontal" [step]="0.01" [(ngModel)]="filtro.priceMax">
+          
+            <ng-template #incrementbuttonicon>
+				      <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+              <span class="pi pi-minus"></span>
+            </ng-template>
+            </p-inputnumber>
+          </div>
+
+        </div>
+      </p-fluid>
     </div>
-  
-    <div class="col-9">
-      <label for="preco-max" class="font-bold mb-2 block">Preço máximo</label>
-      <p-inputnumber placeholder="R$ 0,00" id="preco-max" mode="decimal" mode="currency" currency="BRL" locale="pt-BR"/>
-    </div>
-  
-    <div class="col-3">
-      <label for="data-inicial" class="font-bold mb-2 block">Data inicial</label>
-      <input pInputText id="data-inicial" type="text" placeholder="Data de pagamento inicial" pSize="large"/>
-    </div>
-  
-    <div class="col-9">
-      <label for="data-final" class="font-bold mb-2 block">Data final</label>
-      <input pInputText id="data-final" type="text" placeholder="Data de pagamento máxima" pSize="large"/>
+    
+    <div class="col p-fluid-flex">
+      <p-fluid>
+        <div class="grid grid-cols-2 gap-8">
+
+          <div>
+            <label for="data-inicial" class="font-bold mb-2 block">Data inicial</label>
+            <p-datepicker id="data-inicial" [(ngModel)]="filtro.dateStart"
+              [showIcon]="true" placeholder="Data de pagamento inicial" 
+              name="data-inicial" [showOnFocus]="false" inputId="buttondisplay"
+              readonlyInput="" dateFormat="dd/mm/yy"/>
+          </div>
+      
+          <div>
+            <label for="data-final" class="font-bold mb-2 block">Data final</label>
+            <p-datepicker id="data-final" [(ngModel)]="filtro.dateEnd"
+              [showIcon]="true" placeholder="Data de pagamento final" dateFormat="dd/mm/yy"
+              name="data-final" [showOnFocus]="false" inputId="buttondisplay"
+              readonlyInput="" />
+          </div>
+
+        </div>
+      </p-fluid>
     </div>
 
-    <div class="col-12">
-      <p-button (onClick)="showSuccess()" label="Pesquisar" type="submit" severity="info"/>
+    <div class="col">
+      <p-button label="Pesquisar" type="submit" severity="info"/>
     </div>
-  
+
+  </form>
+
+  <p-divider class="drivider"/>
+
+  <div class="col-12">
+    <app-faturamento-grid [faturamentosRecuperados]="faturamentosRecuperados"/>
   </div>
+</div>

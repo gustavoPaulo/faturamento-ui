@@ -1,3 +1,11 @@
-.grid{
-    margin: 1%;
+:host ::ng-deep .grid {
+    /*margin: 1%;*/
+}
+
+.p-fluid-flex {
+    margin-left: 0.6%;
+}
+
+.drivider {
+    margin-bottom: 0px;
 }

@@ -1,1 +1,42 @@
-<p>faturamento-grid works!</p>
+<p-table
+        [value]="faturamentosRecuperados"
+        [paginator]="true"
+        [rows]="5"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [rowsPerPageOptions]="[5, 10, 20]">
+        <ng-template #header>
+            <tr>
+                <th style="width:12%">Valor</th>
+                <th style="width:25%">Descrição</th>
+                <th style="width:12%">Tipo</th>
+                <th style="width:12%">Pagamento</th>
+                <th style="width:25%">Registro</th>
+                <th style="width:12%">Ações</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-fats>
+            <tr>
+                <td [style.color]="fats.type === 'EXPENSE' ? 'red' : 'blue'">{{ fats.price | currency:'BRL' }}</td>
+                <td>{{ fats.description }}</td>
+                <td>{{ fats.type === 'EXPENSE' ? 'Despesa' : 'Receita' }}</td>
+                <td>{{ fats.dateRelease}}</td>
+                <td>{{ fats.registration}}</td>
+
+                <td>
+                    <div class="col-acoes">
+                        <a [routerLink]="['/faturamentos/editar', fats.code]">
+                            <p-button icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"/>
+                        </a>
+                        <p-button class="btn-excluir" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+                            (click)="confirmarExclusao(fats.code)"/>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="6">Nenhum faturamento encontrado.</td>
+            </tr>
+        </ng-template>
+</p-table>

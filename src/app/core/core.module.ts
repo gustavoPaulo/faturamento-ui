@@ -11,6 +11,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao
 import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SecurityService } from '../security/security.service';
+import { FaturamentoService } from '../faturamentos/faturamento.service';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { SecurityService } from '../security/security.service';
   ],
   exports: [NavbarComponent],
   providers: [
-    SecurityService
+    SecurityService,
+    FaturamentoService
   ]
 })
 export class CoreModule { }

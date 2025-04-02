@@ -18,6 +18,7 @@ export class UserCadastroComponent implements OnInit {
   user = new UserRegister;
   cadastroForm!: FormGroup;
   rotaLogin = "/login";
+  ingredient!: string;
 
   constructor(
     private router: Router,

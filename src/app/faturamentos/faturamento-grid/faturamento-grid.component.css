@@ -1,0 +1,7 @@
+.col-acoes {
+    display: flex;
+}
+
+.btn-excluir {
+    margin-left: 5%;
+}
