@@ -61,4 +61,53 @@ export class FaturamentoService {
     listar(): Promise<Faturamento[] | undefined> {
         return this.http.get<Faturamento[]>(this.faturamentoUrl).toPromise();
     }
+
+    salvar(faturamento: Faturamento): Promise<any> {
+        const headers = new HttpHeaders().append('Content-Type', 'application/json');
+
+        if (faturamento.type === 'RECEITA') {
+            faturamento.type = 'RECIPE';
+        }
+        if (faturamento.type === 'DESPESA') {
+            faturamento.type = 'EXPENSE';
+        }
+    
+        return this.http.post<Faturamento>(`${this.faturamentoUrl}`, 
+            Faturamento.toJson(faturamento), { headers })
+            .toPromise()
+            .then(response => {
+                const faturamentoSalvo = response as Faturamento;
+                return faturamentoSalvo;
+        });
+    }
+
+    atualizar(faturamento: Faturamento): Promise<any> {
+        const headers = new HttpHeaders().append('Content-Type', 'application/json');
+
+        if (faturamento.type === 'RECEITA') {
+            faturamento.type = 'RECIPE';
+        }
+        if (faturamento.type === 'DESPESA') {
+            faturamento.type = 'EXPENSE';
+        }
+    
+        return this.http.put<Faturamento>(`${this.faturamentoUrl}`, 
+            Faturamento.toJson(faturamento), { headers })
+            .toPromise()
+            .then(response => {
+                const faturamentoAtualizado = response as Faturamento;
+                return faturamentoAtualizado;
+        });
+    }
+
+    buscarPorCodigo(codigo: number): Promise<Faturamento> {
+        const headers = new HttpHeaders().append('Content-Type', 'application/json');
+    
+        return this.http.get(`${this.faturamentoUrl}/${codigo}`, { headers })
+          .toPromise()
+          .then(response => {
+            const faturamento = response as Faturamento;
+            return faturamento;
+          });
+    }
 }

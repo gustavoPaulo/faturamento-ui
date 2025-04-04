@@ -6,6 +6,10 @@ import { PaginaNaoEncontradaComponent } from '../app/core/pagina-nao-encontrada/
 import { FaturamentoPesquisaComponent } from './faturamentos/faturamento-pesquisa/faturamento-pesquisa.component';
 import { UserCadastroComponent } from './security/user-cadastro/user-cadastro.component';
 import { LoginComponent } from './security/login/login.component';
+import { FaturamentoCadastroComponent } from './faturamentos/faturamento-cadastro/faturamento-cadastro.component';
+import { UserPesquisaComponent } from './security/user-pesquisa/user-pesquisa.component';
+import { UserNovoComponent } from './security/user-novo/user-novo.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},
@@ -13,8 +17,14 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: '', children: [
       { path: 'faturamentos', component: FaturamentoPesquisaComponent },
+      { path: 'faturamentos/novo', component: FaturamentoCadastroComponent },
+      { path: 'faturamentos/:code', component: FaturamentoCadastroComponent },
+      { path: 'users', component: UserPesquisaComponent },
+      { path: 'users/novo', component: UserNovoComponent },
+      { path: 'users/:code', component: UserNovoComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'login/cadastro', component: UserCadastroComponent }
+      { path: 'login/cadastro', component: UserCadastroComponent },
+      { path: 'dashboard', component: DashboardComponent }
     ]
   },
   { path: '**', component: PaginaNaoEncontradaComponent }

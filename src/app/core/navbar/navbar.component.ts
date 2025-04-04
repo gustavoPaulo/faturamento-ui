@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
         {
             label: 'Dashboard',
             icon: 'pi pi-home',
-            routerLink: '/login'
+            routerLink: '/dashboard'
         },
         {
             label: 'Faturamentos',
@@ -41,12 +41,12 @@ export class NavbarComponent implements OnInit {
               {
                   label: 'Novo usuário',
                   icon: 'pi pi-user-plus',
-                  routerLink: '/usuarios/cadastro'
+                  routerLink: '/users/novo'
               },
               {
                   label: 'Pesquisar usuário',
                   icon: 'pi pi-search',
-                  routerLink: '/usuarios'
+                  routerLink: '/users'
               }]
         }
       ];

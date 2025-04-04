@@ -1,1 +1,75 @@
-<p>faturamento-cadastro works!</p>
+<div class="grid">
+
+    <form #faturamentoForm="ngForm" class="col" (ngSubmit)="salvar(faturamentoForm)">
+        <div class="col">
+            <h1>{{ editando ? 'Edição de' : 'Novo' }} faturamento</h1>
+        </div>
+  
+        <div class="col">
+            <p-selectButton [options]="options" [(ngModel)]="faturamento.type" name="type"/>
+        </div>
+    
+        <div class="col">
+            <label for="descricao" class="font-bold mb-2 block">Descrição</label>
+            <input pInputText id="descricao" name="descricao" 
+                type="text" placeholder="Digite uma descrição" pSize="large" class="col-6"
+                [(ngModel)]="faturamento.description" #descricao="ngModel" required/>
+
+            @if (descricao.invalid && (descricao.dirty || descricao.touched)) {
+                <div class="alert">
+                    @if (descricao.hasError('required')) {
+                      <div class="fild-validation">Campo obrigatório!</div>
+                    }
+                </div>
+            }
+        </div>
+    
+        <div class="col">
+            <label for="preco" class="font-bold mb-2 block">Preço</label>
+                <p-inputnumber class="pInputNumber" placeholder="R$ 0,00" id="preco" mode="decimal"
+                    name="preco" mode="currency" currency="BRL" locale="pt-BR" min="0"
+                    [(ngModel)]="faturamento.price" [showButtons]="true" buttonLayout="horizontal" 
+                    inputId="horizontal" spinnerMode="horizontal" [step]="0.01"
+                    #preco="ngModel" required>
+  
+                    <ng-template #incrementbuttonicon>
+                        <span class="pi pi-plus"></span>
+                    </ng-template>
+                    <ng-template #decrementbuttonicon>
+                        <span class="pi pi-minus"></span>
+                    </ng-template>
+                </p-inputnumber>
+
+                @if (preco.invalid && (preco.dirty || preco.touched)) {
+                    <div class="alert">
+                        @if (preco.hasError('required')) {
+                          <div class="fild-validation">Campo obrigatório!</div>
+                        }
+                    </div>
+                }
+        </div>
+      
+        <div class="col">
+            <label for="dataRelease" class="font-bold mb-2 block">Data de pagamento</label>
+              <p-datepicker id="dataRelease" [(ngModel)]="faturamento.dateRelease"
+                [showIcon]="true" placeholder="Inseria o dia de pagamento" 
+                name="dataRelease" [showOnFocus]="false" inputId="buttondisplay"
+                readonlyInput="" dateFormat="dd/mm/yy"
+                #dataRelease="ngModel" required/>
+
+                @if (dataRelease.invalid && (dataRelease.dirty || dataRelease.touched)) {
+                    <div class="alert">
+                        @if (dataRelease.hasError('required')) {
+                          <div class="fild-validation">Campo obrigatório!</div>
+                        }
+                    </div>
+                }
+        </div>
+  
+        <div class="col">
+            <p-button label="Salvar" type="submit" severity="info" [disabled]="!faturamentoForm.valid"/>
+        </div>
+  
+    </form>
+    
+</div>

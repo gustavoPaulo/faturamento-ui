@@ -1,0 +1,72 @@
+<div class="grid">
+
+    <form #userForm="ngForm" class="col" (ngSubmit)="salvar(userForm)">
+        <div class="col">
+            <h1>{{ editando ? 'Edição de' : 'Novo' }} usuário</h1>
+        </div>
+  
+        <div class="col">
+            <p-selectButton [options]="options" [(ngModel)]="user.userType" name="type"
+            name="type" #type="ngModel" required/>
+
+            @if (type.invalid && (type.dirty || type.touched)) {
+                <div class="alert">
+                    @if (type.hasError('required')) {
+                      <div class="fild-validation">Campo obrigatório!</div>
+                    }
+                </div>
+            }
+        </div>
+    
+        <div class="col-6">
+            <label for="descricao" class="font-bold mb-2 block">E-mail</label>
+            <input pInputText id="email" name="email" 
+                type="email" placeholder="Digite um e-mail valido" pSize="large" class="col-6"
+                [(ngModel)]="user.email" #email="ngModel" required/>
+
+            @if (email.invalid && (email.dirty || email.touched)) {
+                <div class="alert">
+                    @if (email.hasError('required')) {
+                      <div class="fild-validation">Campo obrigatório!</div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="col-6">
+            <label for="senha" class="font-bold mb-2 block">Senha</label>
+            <input pInputText id="senha" name="senha" 
+                type="password" placeholder="Digite uma senha" pSize="large" class="col-6"
+                [(ngModel)]="user.senha" #senha="ngModel" required/>
+
+            @if (senha.invalid && (senha.dirty || senha.touched)) {
+                <div class="alert">
+                    @if (senha.hasError('required')) {
+                      <div class="fild-validation">Campo obrigatório!</div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="col-6">
+            <label for="confirmSenha" class="font-bold mb-2 block">Confirmar senha</label>
+            <input pInputText id="confirmSenha" name="confirmSenha" 
+                type="password" placeholder="Confirme sua senha" pSize="large" class="col-6"
+                [(ngModel)]="userPasswordConfirmation.confirmarSenha" #confirmarSenha="ngModel" required/>
+
+            @if (confirmarSenha.invalid && (confirmarSenha.dirty || confirmarSenha.touched)) {
+                <div class="alert">
+                    @if (confirmarSenha.hasError('required')) {
+                      <div class="fild-validation">Campo obrigatório!</div>
+                    }
+                </div>
+            }
+        </div>
+    
+        <div class="col">
+            <p-button label="Salvar" type="submit" severity="info" [disabled]="!userForm.valid"/>
+        </div>
+  
+    </form>
+    
+</div>

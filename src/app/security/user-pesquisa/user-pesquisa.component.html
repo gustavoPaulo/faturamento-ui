@@ -1,1 +1,30 @@
-<p>user-pesquisa works!</p>
+<div class="grid">
+
+    <form class="col" (ngSubmit)="pesquisarPorEmail()">
+      <div class="col">
+        <h1>Usuários</h1>
+      </div>
+  
+      <div class="col">
+        <p-selectButton [options]="options" [(ngModel)]="usersRegister.userType" name="type"/>
+      </div>
+    
+      <div class="col">
+        <label for="email" class="font-bold mb-2 block">E-mail</label>
+        <input pInputText id="email" name="email"
+          type="text" placeholder="Busca por e-mail" pSize="large" class="col-6"
+          [(ngModel)]="usersRegister.email"/>
+      </div>
+  
+      <div class="col">
+        <p-button label="Pesquisar" type="submit" severity="info"/>
+      </div>
+  
+    </form>
+  
+    <p-divider class="drivider"/>
+  
+    <div class="col-12">
+      <app-user-grid [usuariosRecuperados]="usuariosRecuperados"/>
+    </div>
+</div>

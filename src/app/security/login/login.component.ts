@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
               this.loginForm.reset();
               this.showError('E-mail ou senha incorretos!', 'Falha ao efetuar login.');
             } else {
-              this.router.navigate(['/faturamentos']);
+              this.router.navigate(['/dashboard']);
             }
           }
       })

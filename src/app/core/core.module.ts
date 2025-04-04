@@ -12,6 +12,7 @@ import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.componen
 import { NavbarComponent } from './navbar/navbar.component';
 import { SecurityService } from '../security/security.service';
 import { FaturamentoService } from '../faturamentos/faturamento.service';
+import { DashboardService } from '../dashboard/dashboard.service';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { FaturamentoService } from '../faturamentos/faturamento.service';
   exports: [NavbarComponent],
   providers: [
     SecurityService,
-    FaturamentoService
+    FaturamentoService,
+    DashboardService
   ]
 })
 export class CoreModule { }

@@ -3,7 +3,7 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule  } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch  } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { FaturamentosModule } from '../app/faturamentos/faturamentos.module';
 import { CoreModule } from '../app/core/core.module';
 import { SecurityModule } from '../app/security/security.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 import { ToastrModule } from 'ngx-toastr';
 
@@ -40,7 +41,8 @@ registerLocaleData(localePt);
     
     FaturamentosModule,
     CoreModule,
-    SecurityModule
+    SecurityModule,
+    DashboardModule
   ],
   providers: [
     provideClientHydration(withEventReplay()),
@@ -54,7 +56,8 @@ registerLocaleData(localePt);
             }
         }),
         {provide: LOCALE_ID, useValue: 'pt-BR'},
-        ConfirmationService
+        ConfirmationService,
+        provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
