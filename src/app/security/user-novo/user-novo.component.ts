@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { UserRegister } from '../../core/model/user-register';
 import { SecurityService } from '../security.service';
 import { UserPasswordConfirmation } from '../../core/model/user-password-confirmation';
+import { ErrorMessage } from '../../core/model/error-message';
+import { ErrorHandlerService } from '../../core/error-handler.service';
 
 @Component({
   selector: 'app-user-novo',
@@ -20,6 +22,7 @@ export class UserNovoComponent implements OnInit {
 
   user = new UserRegister();
   userPasswordConfirmation = new UserPasswordConfirmation();
+  errorMessage = new ErrorMessage();
   options: any[] = [
     {label: 'Padrão', value: 'DEFAULT'},
     {label: 'Administrador', value: 'ADMIN'}
@@ -30,7 +33,8 @@ export class UserNovoComponent implements OnInit {
     private userRegisterService: SecurityService,
     private toastr: ToastrService,
     private router: Router,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -61,13 +65,24 @@ export class UserNovoComponent implements OnInit {
             this.showSuccess('Usuário cadastrado com sucesso!','Novo usuário.');
           } else {
             this.router.navigate(['/users/novo']);
-            this.showError('Já existe um usuário cadastrado com o e-mail informado!', 'Novo usuário.');
+
+            this.errorMessage.title = 'Novo usuário.';
+            this.errorMessage.messageInfo = 'Já existe um usuário cadastrado com o e-mail informado!';
+            this.errorMessage.level = 'ERROR';
+            this.errorHandler.handle(null, this.errorMessage);
           }
       })
-      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao cadastrar novo usuário.'));
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao cadastrar novo usuário.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
 
     } else {
-      this.showError('A senha de confirmação deve ser igual a Senha!', 'Novo usuário.');
+      this.errorMessage.title = 'Novo usuário.';
+      this.errorMessage.messageInfo = 'A senha de confirmação deve ser igual a Senha!';
+      this.errorMessage.level = 'ERROR';
+      this.errorHandler.handle(null, this.errorMessage);
     }
   }
 
@@ -79,13 +94,23 @@ export class UserNovoComponent implements OnInit {
             this.router.navigate(['/users']);
             this.showSuccess('Usuário atualizado com sucesso!','Atualização de usuário.');
           } else {
-            this.showError('Já existe um usuário cadastrado com o e-mail informado!', 'Atualização de usuário.');
+            this.errorMessage.title = 'Atualização de usuário.';
+            this.errorMessage.messageInfo = 'Já existe um usuário cadastrado com o e-mail informado!';
+            this.errorMessage.level = 'ERROR';
+            this.errorHandler.handle(null, this.errorMessage);
           }
       })
-      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao atualizar usuário.'));
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao atualizar o usuário.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
 
     } else {
-      this.showError('A senha de confirmação deve ser igual a Senha!', 'Atualização de usuário.');
+      this.errorMessage.title = 'Atualização de usuário.';
+      this.errorMessage.messageInfo = 'A senha de confirmação deve ser igual a Senha!';
+      this.errorMessage.level = 'ERROR';
+      this.errorHandler.handle(null, this.errorMessage);
     }
   }
 
@@ -94,19 +119,15 @@ export class UserNovoComponent implements OnInit {
       .then(usuario => {
         this.user = usuario;
       })
-      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao carregar o usuário.'));
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao carregar o usuário.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
   }
 
   showSuccess(message: string, titulo: string) {
     this.toastr.success(message, titulo);
-  }
-
-  showError(message: string, titulo: string) {
-    this.toastr.error(message, titulo);
-  }
-
-  showInfo(message: string, titulo: string) {
-    this.toastr.info(message, titulo);
   }
 
   get editando() {

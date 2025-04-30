@@ -14,7 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 const routes: Routes = [
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},
   { path: 'nao-autorizado', component: NaoAutorizadoComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   { path: '', children: [
       { path: 'faturamentos', component: FaturamentoPesquisaComponent },
       { path: 'faturamentos/novo', component: FaturamentoCadastroComponent },

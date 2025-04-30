@@ -4,6 +4,8 @@ import { Title } from '@angular/platform-browser';
 import { UserRegister } from '../../core/model/user-register';
 import { SecurityService } from '../security.service';
 import { ToastrService } from 'ngx-toastr';
+import { ErrorMessage } from '../../core/model/error-message';
+import { ErrorHandlerService } from '../../core/error-handler.service';
 
 @Component({
   selector: 'app-user-pesquisa',
@@ -20,12 +22,14 @@ export class UserPesquisaComponent implements OnInit {
   ];
 
   usersRegister = new UserRegister();
+  errorMessage = new ErrorMessage();
   @Input() usuariosRecuperados!: UserRegister[];
 
   constructor(
     private title: Title,
     private userRegisterService: SecurityService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +44,11 @@ export class UserPesquisaComponent implements OnInit {
         this.usuariosRecuperados = usuariosRecuperados;
         this.usersRegister.userType = 'TODOS';
       })
-      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao pesquisar os usuários.'));
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao pesquisar os usuários.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
   }
 
   pesquisarPorEmail() {
@@ -52,14 +60,10 @@ export class UserPesquisaComponent implements OnInit {
           this.usuariosRecuperados = [];
         }
       })
-      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao pesquisar os usuários por e-mail.'));
-  }
-
-  showError(message: string, titulo: string) {
-    this.toastr.error(message, titulo);
-  }
-
-  showInfo(message: string, titulo: string) {
-    this.toastr.info(message, titulo);
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao pesquisar os usuários por e-mail.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
   }
 }

@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { FaturamentoService } from '../faturamento.service';
 import { Faturamento } from '../../core/model/faturamento';
+import { ErrorMessage } from '../../core/model/error-message';
+import { ErrorHandlerService } from '../../core/error-handler.service';
 
 @Component({
   selector: 'app-faturamento-cadastro',
@@ -17,6 +19,7 @@ import { Faturamento } from '../../core/model/faturamento';
 export class FaturamentoCadastroComponent implements OnInit {
 
   faturamento = new Faturamento();
+  errorMessage = new ErrorMessage();
   options: any[] = [
     {label: 'Receita', value: 'RECEITA'},
     {label: 'Despesa', value: 'DESPESA'}
@@ -27,7 +30,8 @@ export class FaturamentoCadastroComponent implements OnInit {
     private faturamentoService: FaturamentoService,
     private toastr: ToastrService,
     private router: Router,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +62,11 @@ export class FaturamentoCadastroComponent implements OnInit {
           form.reset();
         }
       })
-      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao salvar o faturamento.'));
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao salvar o faturamento.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
   }
 
   atualizarFaturamento(form: NgForm) {
@@ -70,7 +78,11 @@ export class FaturamentoCadastroComponent implements OnInit {
           this.router.navigate(['/faturamentos']);
         }
       })
-      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao atualizar o faturamento.'));
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao atualizar o faturamento.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
   }
 
   carregarFaturamento(codigo: number) {
@@ -84,15 +96,15 @@ export class FaturamentoCadastroComponent implements OnInit {
         }
         this.faturamento = faturamento;
       })
-      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao carregar o faturamento.'));
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao carregar o faturamento.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
   }
 
   showSuccess(message: string, titulo: string) {
     this.toastr.success(message, titulo);
-  }
-
-  showError(message: string, titulo: string) {
-    this.toastr.error(message, titulo);
   }
 
   get editando() {

@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SecurityService } from '../security/security.service';
 import { FaturamentoService } from '../faturamentos/faturamento.service';
 import { DashboardService } from '../dashboard/dashboard.service';
+import { ErrorHandlerService } from './error-handler.service';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { DashboardService } from '../dashboard/dashboard.service';
   providers: [
     SecurityService,
     FaturamentoService,
-    DashboardService
+    DashboardService,
+    ErrorHandlerService
   ]
 })
 export class CoreModule { }

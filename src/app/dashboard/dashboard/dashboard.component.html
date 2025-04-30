@@ -1,1 +1,45 @@
-<h1>Mostrando dados do mês de {{ dashboard.mesAtual }}</h1>
+<div class="grid">
+
+    <div class="col-12">
+        <h1 class="dash-title">Dashboard</h1>
+    </div>
+
+    <div class="col-1"></div>
+
+    <div class="col-5">
+        <p-card header="Despesas">
+            <p class="m-2 font-bold">Mês de referência: {{ dashboard.mesAtual }}</p>
+            <p class="m-2">
+                Maior despesa: {{ dashboard.maiorDespesa | currency:'BRL' }}
+            </p>
+            <p class="m-2">
+                Menor despesa: {{ dashboard.menorDespesa | currency:'BRL' }}
+            </p>
+            <ng-template pTemplate="footer">
+                <div class="flex">
+                    <p-button type="primary" label="Visualizar todas" class="w-full" styleClass="w-full" 
+                        routerLink="/faturamentos" severity="danger"/>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+
+    <div class="col-5">
+        <p-card header="Receitas">
+            <p class="m-2 font-bold">Mês de referência: {{ dashboard.mesAtual }}</p>
+            <p class="m-2">
+                Maior receita: {{ dashboard.maiorReceita | currency:'BRL' }}
+            </p>
+            <p class="m-2">
+                Menor receita: {{ dashboard.menorReceita | currency:'BRL' }}
+            </p>
+            <ng-template pTemplate="footer">
+                <div class="flex">
+                    <p-button label="Visualizar todas" class="w-full" styleClass="w-full" 
+                        routerLink="/faturamentos"/>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+
+</div>

@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UserRegister } from '../../core/model/user-register';
 import { SecurityService } from '../security.service';
+import { ErrorHandlerService } from '../../core/error-handler.service';
+import { ErrorMessage } from '../../core/model/error-message';
+
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -18,13 +21,15 @@ export class LoginComponent implements OnInit {
   user = new UserRegister;
   loginForm!: FormGroup;
   rotaNovoUsuario = "/login/cadastro";
+  errorMessage = new ErrorMessage();
 
   constructor(
     private router: Router,
     private title: Title,
     public formBuilder: FormBuilder,
     private securityService: SecurityService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private errorHandler: ErrorHandlerService
   ) { }
 
   ngOnInit(): void {
@@ -44,22 +49,30 @@ export class LoginComponent implements OnInit {
           if (null == usuarioRecuperado.code) {
             this.router.navigate(['/login']);
             this.loginForm.reset();
-            this.showError('Nenhum usuário encontrado com o e-mail informado!', 'Falha ao efetuar login.');
+
+            this.errorMessage.title = 'Falha ao efetuar login.';
+            this.errorMessage.messageInfo = 'Nenhum usuário encontrado com o e-mail informado!';
+            this.errorMessage.level = 'ERROR';
+            this.errorHandler.handle(null, this.errorMessage);
           } else {
             if (usuarioRecuperado.code == 0) {
               this.router.navigate(['/login']);
               this.loginForm.reset();
-              this.showError('E-mail ou senha incorretos!', 'Falha ao efetuar login.');
+
+              this.errorMessage.title = 'Falha ao efetuar login.';
+              this.errorMessage.messageInfo = 'E-mail ou senha incorretos!';
+              this.errorMessage.level = 'ERROR';
+              this.errorHandler.handle(null, this.errorMessage);
             } else {
               this.router.navigate(['/dashboard']);
             }
           }
       })
-      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao efetuar login.'));
-  }
-
-  showError(message: string, titulo: string) {
-    this.toastr.error(message, titulo);
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao efetuar login.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
   }
 
 }

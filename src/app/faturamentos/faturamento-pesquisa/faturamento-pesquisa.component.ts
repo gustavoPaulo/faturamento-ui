@@ -5,7 +5,8 @@ import { FaturamentoService } from '../faturamento.service';
 import { FaturamentoFiltro } from '../../core/model/faturamento-filtro';
 import { Faturamento } from '../../core/model/faturamento';
 
-import { ToastrService } from 'ngx-toastr';
+import { ErrorMessage } from '../../core/model/error-message';
+import { ErrorHandlerService } from '../../core/error-handler.service';
 
 @Component({
   selector: 'app-faturamento-pesquisa',
@@ -21,12 +22,13 @@ export class FaturamentoPesquisaComponent implements OnInit {
     {label: 'Despesa', value: 'DESPESA'}
   ];
   filtro = new FaturamentoFiltro;
+  errorMessage = new ErrorMessage();
   @Input() faturamentosRecuperados!: Faturamento[];
 
   constructor(
     private title: Title,
     private faturamentoService: FaturamentoService,
-    private toastr: ToastrService
+    private errorHandler: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -39,14 +41,10 @@ export class FaturamentoPesquisaComponent implements OnInit {
       .then(faturamentosRecuperados => {
         this.faturamentosRecuperados = faturamentosRecuperados;
       })
-      .catch(erro => this.showError('Erro interno: ' + erro,'Falha ao pesquisar os faturamentos.'));
-  }
-
-  showError(message: string, titulo: string) {
-    this.toastr.error(message, titulo);
-  }
-
-  showInfo(message: string, titulo: string) {
-    this.toastr.info(message, titulo);
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao pesquisar os faturamentos.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
   }
 }
