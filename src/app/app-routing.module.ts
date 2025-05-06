@@ -24,7 +24,8 @@ const routes: Routes = [
       { path: 'users/:code', component: UserNovoComponent },
       { path: 'login', component: LoginComponent },
       { path: 'login/cadastro', component: UserCadastroComponent },
-      { path: 'dashboard', component: DashboardComponent }
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dash-faturamentos/:fattype', component: FaturamentoPesquisaComponent}
     ]
   },
   { path: '**', component: PaginaNaoEncontradaComponent }

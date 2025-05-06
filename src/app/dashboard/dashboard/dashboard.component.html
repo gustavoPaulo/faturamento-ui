@@ -17,8 +17,9 @@
             </p>
             <ng-template pTemplate="footer">
                 <div class="flex">
-                    <p-button type="primary" label="Visualizar todas" class="w-full" styleClass="w-full" 
-                        routerLink="/faturamentos" severity="danger"/>
+                    <p-button label="Visualizar todas" class="w-full p-button-link" styleClass="w-full" 
+                        severity="danger" [routerLink]="['/dash-faturamentos', fatTypeExpense]"
+                        pTooltip="Visualizar despesas" tooltipPosition="top"/>
                 </div>
             </ng-template>
         </p-card>
@@ -35,11 +36,17 @@
             </p>
             <ng-template pTemplate="footer">
                 <div class="flex">
-                    <p-button label="Visualizar todas" class="w-full" styleClass="w-full" 
-                        routerLink="/faturamentos"/>
+                    <p-button label="Visualizar todas" class="w-full p-button-link" styleClass="w-full" 
+                        [routerLink]="['/dash-faturamentos', fatTypeRecipe]"
+                        pTooltip="Visualizar receitas" tooltipPosition="top"/>
                 </div>
             </ng-template>
         </p-card>
+    </div>
+
+    <div class="col-12 btnUpdateData">
+        <p-button label="Atualizar dados" icon="pi pi-refresh" iconPos="bottom" severity="info"
+            (onClick)="regerarDados()"/>
     </div>
 
 </div>

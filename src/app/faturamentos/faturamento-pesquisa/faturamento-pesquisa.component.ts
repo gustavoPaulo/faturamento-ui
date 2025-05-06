@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 import { FaturamentoService } from '../faturamento.service';
 import { FaturamentoFiltro } from '../../core/model/faturamento-filtro';
@@ -28,11 +29,21 @@ export class FaturamentoPesquisaComponent implements OnInit {
   constructor(
     private title: Title,
     private faturamentoService: FaturamentoService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private actRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.title.setTitle('Billing - Consulta');
+
+    const fatType = this.actRoute.snapshot.params[`fattype`];
+
+    if (fatType === 'receitas') {
+      this.filtro.type = 'RECEITA';
+    } else if (fatType === 'despesas') {
+      this.filtro.type = 'DESPESA';
+    }
+
     this.pesquisar();
   }
 

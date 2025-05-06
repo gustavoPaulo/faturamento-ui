@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LancamentosRoutingModule } from './dashboard-routing.module';
@@ -15,6 +16,7 @@ import { LancamentosRoutingModule } from './dashboard-routing.module';
     CommonModule,
     CardModule,
     ButtonModule,
+    TooltipModule,
 
     LancamentosRoutingModule
   ]
