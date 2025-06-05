@@ -1,3 +1,7 @@
+::ng-deep body  {
+    background-color: #ffffff;
+}
+
 .dash-title {
     text-align: center;
 }
