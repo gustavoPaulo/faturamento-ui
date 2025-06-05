@@ -8,7 +8,6 @@ import { SecurityService } from '../security.service';
 import { ErrorHandlerService } from '../../core/error-handler.service';
 import { ErrorMessage } from '../../core/model/error-message';
 
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +27,6 @@ export class LoginComponent implements OnInit {
     private title: Title,
     public formBuilder: FormBuilder,
     private securityService: SecurityService,
-    private toastr: ToastrService,
     private errorHandler: ErrorHandlerService
   ) { }
 
@@ -64,6 +62,7 @@ export class LoginComponent implements OnInit {
               this.errorMessage.level = 'ERROR';
               this.errorHandler.handle(null, this.errorMessage);
             } else {
+              localStorage.setItem('userEmail', this.user.email);
               this.router.navigate(['/dashboard']);
             }
           }

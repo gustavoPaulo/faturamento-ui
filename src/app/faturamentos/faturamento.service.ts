@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environments.dev';
 import { Faturamento } from '../core/model/faturamento';
 import { FaturamentoFiltro } from '../core/model/faturamento-filtro';
+import { Mail } from '../core/model/mail';
 
 @Injectable()
 export class FaturamentoService {
@@ -109,5 +110,17 @@ export class FaturamentoService {
             const faturamento = response as Faturamento;
             return faturamento;
           });
+    }
+
+    enviarPorEmail(faturamento: Faturamento, userEmail: string): Promise<any> {
+        const headers = new HttpHeaders().append('Content-Type', 'application/json');
+    
+        return this.http.post<Faturamento>(`${this.faturamentoUrl}/'${userEmail}'`, 
+            Faturamento.toJson(faturamento), { headers })
+            .toPromise()
+            .then(response => {
+                const mailResponse = response as unknown  as Mail;
+                return mailResponse;
+            });
     }
 }

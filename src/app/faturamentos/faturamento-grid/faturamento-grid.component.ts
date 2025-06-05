@@ -5,6 +5,8 @@ import { ConfirmationService } from 'primeng/api';
 import { Faturamento } from '../../core/model/faturamento';
 import { ToastrService } from 'ngx-toastr';
 import { FaturamentoService } from '../faturamento.service';
+import { ErrorHandlerService } from '../../core/error-handler.service';
+import { ErrorMessage } from '../../core/model/error-message';
 
 @Component({
   selector: 'app-faturamento-grid',
@@ -15,11 +17,13 @@ import { FaturamentoService } from '../faturamento.service';
 export class FaturamentoGridComponent {
 
   @Input() faturamentosRecuperados!: Faturamento[];
+  errorMessage = new ErrorMessage();
 
   constructor(
     private confirmation: ConfirmationService,
     private toastr: ToastrService,
-    private faturamentoService: FaturamentoService
+    private faturamentoService: FaturamentoService,
+    private errorHandler: ErrorHandlerService
   ) { }
 
   confirmarExclusao(faturamentoCode: any) {
@@ -37,7 +41,11 @@ export class FaturamentoGridComponent {
       this.showSuccess('Faturamento excluído com sucesso!', 'Ação efetuada');
       this.listarTodos();
     })
-    .catch(erro => this.showError('Erro interno: ' + erro, 'Falho ao excluir faturamento.'));
+    .catch(erro => {
+      this.errorMessage.messageInfo = 'Falho ao excluir faturamento.';
+      this.errorMessage.level = 'ERROR';
+      this.errorHandler.handle(erro, this.errorMessage);
+    });
   }
 
   listarTodos() {
@@ -51,8 +59,25 @@ export class FaturamentoGridComponent {
       });
   }
 
-  showError(message: string, titulo: string) {
-    this.toastr.error(message, titulo);
+  enviarPorEmail(faturamento: Faturamento) {
+    const userEmail = localStorage.getItem('userEmail');
+
+    this.faturamentoService.enviarPorEmail(faturamento, userEmail!)
+      .then((response) => {
+        if (response.status === 'OK') {
+          this.showSuccess(response.message, 'Ação efetuada');
+        } else {
+          this.errorMessage.title = 'Falha ao enviar faturamento por e-mail.';
+          this.errorMessage.messageInfo = response.message;
+          this.errorMessage.level = 'ERROR';
+          this.errorHandler.handle(response.message, this.errorMessage);
+        }
+      })
+      .catch(erro => {
+        this.errorMessage.messageInfo = 'Falha ao enviar faturamento por e-mail.';
+        this.errorMessage.level = 'ERROR';
+        this.errorHandler.handle(erro, this.errorMessage);
+      });
   }
 
   showSuccess(message: string, titulo: string) {
