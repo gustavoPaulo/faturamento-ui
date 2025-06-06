@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, output, Output } from '@angular/core';
 
 import { ConfirmationService } from 'primeng/api';
 
@@ -17,6 +17,7 @@ import { ErrorMessage } from '../../core/model/error-message';
 export class FaturamentoGridComponent {
 
   @Input() faturamentosRecuperados!: Faturamento[];
+  @Output() faturamentosParaEnvioPorEmail!: Faturamento[];
   errorMessage = new ErrorMessage();
 
   constructor(
@@ -59,25 +60,18 @@ export class FaturamentoGridComponent {
       });
   }
 
-  enviarPorEmail(faturamento: Faturamento) {
-    const userEmail = localStorage.getItem('userEmail');
+  addFaturamentoParaEnvio(faturamento: Faturamento) {
 
-    this.faturamentoService.enviarPorEmail(faturamento, userEmail!)
-      .then((response) => {
-        if (response.status === 'OK') {
-          this.showSuccess(response.message, 'Ação efetuada');
-        } else {
-          this.errorMessage.title = 'Falha ao enviar faturamento por e-mail.';
-          this.errorMessage.messageInfo = response.message;
-          this.errorMessage.level = 'ERROR';
-          this.errorHandler.handle(response.message, this.errorMessage);
-        }
-      })
-      .catch(erro => {
-        this.errorMessage.messageInfo = 'Falha ao enviar faturamento por e-mail.';
-        this.errorMessage.level = 'ERROR';
-        this.errorHandler.handle(erro, this.errorMessage);
-      });
+    if (undefined === this.faturamentosParaEnvioPorEmail) {
+      this.faturamentosParaEnvioPorEmail = [];
+    }
+
+    if (!this.faturamentosParaEnvioPorEmail.includes(faturamento)) {
+      this.faturamentosParaEnvioPorEmail.push(faturamento);
+
+    } else if (this.faturamentosParaEnvioPorEmail.includes(faturamento)) {
+      this.faturamentosParaEnvioPorEmail.splice(this.faturamentosParaEnvioPorEmail.indexOf(faturamento), 1);
+    }
   }
 
   showSuccess(message: string, titulo: string) {

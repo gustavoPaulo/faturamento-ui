@@ -60,6 +60,7 @@ export class FaturamentoCadastroComponent implements OnInit {
         if (faturamentoSalvo.code > 0) {
           this.showSuccess('Faturamento salvo com sucesso!', 'Ação efetuada');
           form.reset();
+          this.faturamento.type = 'RECEITA';
         }
       })
       .catch(erro => {

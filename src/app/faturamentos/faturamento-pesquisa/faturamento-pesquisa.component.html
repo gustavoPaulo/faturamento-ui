@@ -82,6 +82,9 @@
 
     <div class="col">
       <p-button label="Pesquisar" type="submit" severity="info"/>
+
+      <p-button class="btn-enviar" icon="pi pi-envelope" [pTooltip]="'Enviar faturamento(s) para ' + userMail"
+        tooltipPosition="top" (onClick)="confirmarEnvioPorEmail()"/>
     </div>
 
   </form>

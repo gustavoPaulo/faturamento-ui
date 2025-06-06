@@ -11,6 +11,7 @@ import { FluidModule } from 'primeng/fluid';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { DividerModule } from 'primeng/divider';
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { FaturamentoPesquisaComponent } from './faturamento-pesquisa/faturamento-pesquisa.component';
 import { LancamentosRoutingModule } from './faturamentos-routing.module';
@@ -37,6 +38,7 @@ import { FaturamentoCadastroComponent } from './faturamento-cadastro/faturamento
     FluidModule,
     TableModule,
     DividerModule,
+    CheckboxModule,
     
     LancamentosRoutingModule
   ]

@@ -112,14 +112,19 @@ export class FaturamentoService {
           });
     }
 
-    enviarPorEmail(faturamento: Faturamento, userEmail: string): Promise<any> {
+    enviarPorEmail(faturamentos: Faturamento[], userEmail: string): Promise<any> {
         const headers = new HttpHeaders().append('Content-Type', 'application/json');
-    
-        return this.http.post<Faturamento>(`${this.faturamentoUrl}/'${userEmail}'`, 
-            Faturamento.toJson(faturamento), { headers })
+        const faturamentosInJson: Faturamento[] = [];
+
+        for (const fat of faturamentos) {
+            faturamentosInJson.push(Faturamento.toJson(fat));
+        }
+
+        return this.http.post<Faturamento[]>(`${this.faturamentoUrl}/'${userEmail}'`, 
+            faturamentosInJson, { headers })
             .toPromise()
             .then(response => {
-                const mailResponse = response as unknown  as Mail;
+                const mailResponse = response as unknown as Mail;
                 return mailResponse;
             });
     }
